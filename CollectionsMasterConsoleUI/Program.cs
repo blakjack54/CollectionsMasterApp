@@ -12,7 +12,7 @@ namespace CollectionsMasterConsoleUI
             int[] numbers = new int[50];
 
             // Populate the number array with 50 random numbers between 0 and 51 (inclusive)
-            Populater(numbers, 0, 51); // Improved Populater with range
+            Populater(numbers, 0, 51);
 
             // Print the first number of the array
             Console.WriteLine("First Number: {0}", numbers[0]);
@@ -64,7 +64,7 @@ namespace CollectionsMasterConsoleUI
             Console.WriteLine("Initial List Capacity: {0}", numberList.Capacity);
 
             // Populate the List with 50 random numbers between 0 and 51 (inclusive)
-            Populater(numberList, 0, 51); // Improved Populater with range
+            Populater(numberList, 0, 51);
 
             // Print the new capacity (capacity might change dynamically)
             Console.WriteLine("New List Capacity: {0}", numberList.Capacity);
@@ -72,7 +72,7 @@ namespace CollectionsMasterConsoleUI
 
             // Search for a number in the list (with error handling)
             Console.WriteLine("What number will you search for in the number list?");
-            int searchNumber = GetValidIntInput(); // Function to handle invalid input (assuming it exists)
+            int searchNumber = GetValidIntInput();
 
             NumberChecker(numberList, searchNumber);
 
@@ -105,13 +105,13 @@ namespace CollectionsMasterConsoleUI
             #endregion
         }
 
-        // Helper methods for various functionalities (assuming they exist)
+        // Helper methods for various functionalities
         private static void Populater(int[] numbers, int min, int max)
         {
             Random random = new Random();
             for (int i = 0; i < numbers.Length; i++)
             {
-                numbers[i] = random.Next(min, max); // Generate random number within range
+                numbers[i] = random.Next(min, max);
             }
         }
 
@@ -120,7 +120,87 @@ namespace CollectionsMasterConsoleUI
             Random random = new Random();
             for (int i = 0; i < 50; i++)
             {
-                numberList.Add(random.Next(min, max)); // Add random number within range
+                numberList.Add(random.Next(min, max));
             }
         }
 
+        private static void NumberPrinter(int[] numbers)
+        {
+            foreach (var number in numbers)
+            {
+                Console.WriteLine(number);
+            }
+        }
+
+        private static void NumberPrinter(List<int> numberList)
+        {
+            foreach (var number in numberList)
+            {
+                Console.WriteLine(number);
+            }
+        }
+
+        private static void ReverseArray(int[] array)
+        {
+            int temp;
+            int start = 0;
+            int end = array.Length - 1;
+
+            while (start < end)
+            {
+                temp = array[start];
+                array[start] = array[end];
+                array[end] = temp;
+                start++;
+                end--;
+            }
+        }
+
+        private static void ThreeKiller(int[] numbers)
+        {
+            for (int i = 0; i < numbers.Length; i++)
+            {
+                if (numbers[i] % 3 == 0)
+                {
+                    numbers[i] = 0;
+                }
+            }
+        }
+
+        private static void OddKiller(List<int> numberList)
+        {
+            for (int i = numberList.Count - 1; i >= 0; i--)
+            {
+                if (numberList[i] % 2 != 0)
+                {
+                    numberList.RemoveAt(i);
+                }
+            }
+        }
+
+        private static void NumberChecker(List<int> numberList, int searchNumber)
+        {
+            if (numberList.Contains(searchNumber))
+            {
+                Console.WriteLine($"Number {searchNumber} is in the list.");
+            }
+            else
+            {
+                Console.WriteLine($"Number {searchNumber} is not in the list.");
+            }
+        }
+
+        private static int GetValidIntInput()
+        {
+            int number;
+            while (true)
+            {
+                if (int.TryParse(Console.ReadLine(), out number))
+                {
+                    return number;
+                }
+                Console.WriteLine("Invalid input. Please enter a valid integer.");
+            }
+        }
+    }
+}
